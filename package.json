@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "migrate": "npx sequelize-cli db:migrate",
+    "undo:-migration": "npx sequelize-cli db:migrate:undo"
   },
   "author": "Rahul Saini",
   "license": "ISC",
