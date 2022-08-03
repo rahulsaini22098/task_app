@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs";
 const basename = path.basename(__filename);
 const env: string = "development";
-const config = require("../config/config.js")
+const config = require("../config/config.js");
 
 interface ConfigAttribute {
   database: string;
@@ -42,6 +42,5 @@ Object.keys(db).forEach((modelName) => {
 });
 
 db.sequelize = sequelize;
-
 
 export default db;
