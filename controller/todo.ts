@@ -31,18 +31,18 @@ export const createTodo = async (req: Request, res: Response) => {
   const { taskname, taskDescription } = req.body;
 
   if (taskname === '' || taskname === undefined) {
-    return res.status(400).json({ msg: 'Task name is requires' });
+    return res.status(400).json({ msg: 'Task name is required' });
   }
 
   if (taskDescription === '' || taskDescription === undefined) {
-    return res.status(400).json({ msg: 'Task name is requires' });
+    return res.status(400).json({ msg: 'Task description is required' });
   }
 
   const input: TaskInputs = {
     id: uuidv4(),
-    taskname,
-    taskDescription,
-    userId: '',
+    taskname: taskname,
+    taskDescription: taskDescription,
+    userId: '8cf57ebe-98c4-4d30-81fe-18a7ce6105f2',
   };
 
   try {

@@ -19,7 +19,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
     taskDescription!: string;
     isDone?: string;
     static associate(models: any) {
-      // define association here
+      Todo.belongsTo(models.User, { foreignKey: {
+        name: 'userId',
+        allowNull: false
+      }})
     }
   }
 
