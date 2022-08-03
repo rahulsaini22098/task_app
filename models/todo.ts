@@ -1,4 +1,4 @@
-import { Model, UUIDV4 } from "sequelize";
+import { Model, UUIDV4 } from 'sequelize';
 
 interface TaskAttributes {
   id: string;
@@ -14,13 +14,16 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * The `models/index` file will call this method automatically.
      */
     id!: string;
+
     taskname!: string;
+
     isDone?: string;
+
     static associate(models: any) {
       // define association here
       Todo.belongsTo(models.User, {
         foreignKey: {
-          name: "userId",
+          name: 'userId',
           allowNull: false,
         },
       });
@@ -47,8 +50,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     {
       sequelize,
-      modelName: "Task",
-    }
+      modelName: 'Task',
+    },
   );
   return Todo;
 };
