@@ -2,6 +2,12 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import db from '../models/index';
 
+interface TaskInputs {
+  id: string;
+  taskname: string;
+  taskDescription: string;
+  userId: string;
+}
 
 export const getAllTodo = async (req: Request, res: Response) => {
   try {
@@ -22,16 +28,25 @@ export const findTodoById = async (req: Request, res: Response) => {
 };
 
 export const createTodo = async (req: Request, res: Response) => {
-  const { taskname } = req.body;
-  const userId: string = 'e9e247a6-c6ab-47ff-87bb-e83bcc07cfa9';
+  const { taskname, taskDescription } = req.body;
 
-  if (taskname === '') {
+  if (taskname === '' || taskname === undefined) {
     return res.status(400).json({ msg: 'Task name is requires' });
   }
 
-  const id = uuidv4();
+  if (taskDescription === '' || taskDescription === undefined) {
+    return res.status(400).json({ msg: 'Task name is requires' });
+  }
+
+  const input: TaskInputs = {
+    id: uuidv4(),
+    taskname,
+    taskDescription,
+    userId: '',
+  };
+
   try {
-    const todo = await db.Task.create({ id, taskname, userId });
+    const todo = await db.Task.create(input);
     return res.status(200).json(todo);
   } catch (error) {
     return res.status(500).json({ msg: 'fail to create todo' });
