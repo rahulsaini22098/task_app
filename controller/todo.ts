@@ -1,6 +1,8 @@
+import { Model } from 'sequelize';
 import { NextFunction, Request, Response } from "express";
+import { Mode } from "fs";
 import { v4 as uuidv4 } from "uuid";
-import { Todo } from "../models/todo";
+import db from "../models/index";
 
 interface UpdateTaskDAO {
   id: string;
@@ -10,15 +12,20 @@ interface UpdateTaskDAO {
 
 export const getAllTodo = async (req: Request, res: Response) => {
   try {
-    const todos = await Todo.findAll();
+    const todos = await db.Task.findAll();
     return res.status(200).json(todos);
   } catch (error) {
     return res.status(500).json({ msg: "fail to get tasks" });
   }
 };
 
-export const findTodoById = (req: Request, res: Response) => {
-  return res.status(200).json(req.params.id);
+export const findTodoById = async (req: Request, res: Response) => {
+  try {
+    const todo = await db.Task.findByPk(req.params.id);
+    return res.status(200).json(todo);
+  } catch (error) {
+    return res.status(500).json({ msg: "fail to find the task" });
+  }
 };
 
 export const createTodo = async (req: Request, res: Response) => {
@@ -30,9 +37,11 @@ export const createTodo = async (req: Request, res: Response) => {
 
   const id = uuidv4();
   try {
-    const todo = await Todo.create({ id, taskname });
+    const todo = await db.Task.create({ id, taskname });
     return res.status(200).json(todo);
   } catch (error) {
+    console.log(error)
+
     return res.status(500).json({ msg: "fail to create todo" });
   }
 };
@@ -40,15 +49,16 @@ export const createTodo = async (req: Request, res: Response) => {
 export const updateTodo = async (req: Request, res: Response) => {
   try {
     const body: UpdateTaskDAO = req.body;
-    const todo = await Todo.findByPk(req.params.id);
+    const todo = await db.Task.update(
+      { ...req.body },
+      { where: { id: req.params.id } }
+    );
 
-    if (todo == null) {
+    if (todo[0] == 0) {
       return res.status(400).json({ msg: "task not found" });
     }
 
-    const updatedTodo: Todo = await todo.update({ ...body });
-
-    return res.status(200).json(updatedTodo);
+    return res.status(200).json({ msg: "task updated successfully" });
   } catch (error) {
     return res.status(500).json({ msg: "fail to update todo" });
   }
@@ -56,16 +66,13 @@ export const updateTodo = async (req: Request, res: Response) => {
 
 export const deletTodoById = async (req: Request, res: Response) => {
   try {
-    const todo = await Todo.findByPk(req.params.id);
+    const todo = await db.Task.destroy({ where: { id: req.params.id } });
 
-    if (todo == null) {
+    if (todo == 0) {
       return res.status(400).json({ msg: "task not found" });
     }
 
-    await todo.destroy();
-    return res
-      .status(200)
-      .json({ id: todo.id, msg: "Task deleted successfully" });
+    return res.status(200).json({ msg: "Task deleted successfully" });
   } catch (error) {
     return res.status(500).json({ msg: "fail to delete todo" });
   }
