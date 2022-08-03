@@ -1,7 +1,7 @@
 'use strict';
-import {QueryInterface, Sequelize} from 'sequelize'
+
 module.exports = {
-  async up (queryInterface: QueryInterface, Sequelize: Sequelize) {
+  async up (queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -13,7 +13,7 @@ module.exports = {
     */
   },
 
-  async down (queryInterface: QueryInterface, Sequelize: Sequelize) {
+  async down (queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *

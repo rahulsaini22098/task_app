@@ -1,7 +1,8 @@
 'use strict';
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -11,9 +12,18 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+
+    await queryInterface.bulkInsert('Users', [{
+      id: uuidv4(),
+      name: "Jiraya",
+      email: "jir@anoi.com",
+      password: "test@123",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *

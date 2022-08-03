@@ -30,6 +30,7 @@ export const findTodoById = async (req: Request, res: Response) => {
 
 export const createTodo = async (req: Request, res: Response) => {
   const taskname: string = req.body.taskname;
+  const userId: string = "e9e247a6-c6ab-47ff-87bb-e83bcc07cfa9"
 
   if (taskname == "") {
     return res.status(400).json({ msg: "Task name is requires" });
@@ -37,7 +38,7 @@ export const createTodo = async (req: Request, res: Response) => {
 
   const id = uuidv4();
   try {
-    const todo = await db.Task.create({ id, taskname });
+    const todo = await db.Task.create({ id, taskname, userId });
     return res.status(200).json(todo);
   } catch (error) {
     console.log(error)
