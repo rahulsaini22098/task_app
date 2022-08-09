@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { v4 as uuidv4 } from 'uuid'
-import db from '../models/index'
+import db from '../../models/index'
 
 interface TaskInputs {
   id: string;
@@ -44,7 +44,7 @@ export const createTodo = async (req: Request, res: Response) => {
         id: uuidv4(),
         taskname: taskname,
         taskDescription: taskDescription,
-        userId: '8cf57ebe-98c4-4d30-81fe-18a7ce6105f2',
+        userId: 'f4790991-a7ae-49eb-9324-54c374f0e0fa',
     }
 
     try {

@@ -1,18 +1,24 @@
 import express, {  } from 'express'
 import db from './models/index'
 import * as dotenv from 'dotenv'
+import cors from 'cors'
+
+//routes
+import todoRoutes from './routes/todo'
+import userRoutes from './routes/user'
 
 dotenv.config()
 
-//routes
-import todoRoute from './routes/todo'
-
 const app = express()
-const port = 3000 || process.env.PORT
+const port = 8000 || process.env.PORT
 
 // config middleware
+app.use(cors())
 app.use(express.json())
-app.use('/', todoRoute)
+
+// routes
+app.use('/', todoRoutes)
+app.use('/user', userRoutes)
 
 // config DB
 db.sequelize.sync()

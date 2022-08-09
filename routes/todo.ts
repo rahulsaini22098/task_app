@@ -3,7 +3,7 @@ import { getAllTodo,
     findTodoById,
     createTodo,
     updateTodo,
-    deletTodoById, } from '../controller/todo'
+    deletTodoById, } from '../controller/todo/todo'
 
 const router = express.Router()
 
