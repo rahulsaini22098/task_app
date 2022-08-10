@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { errorMethod } from './../../utils/helperFunctions'
+import { AuthRequest, ErrorUserMessages } from './../user/type'
 import { Request, Response } from 'express'
 import { v4 as uuidv4 } from 'uuid'
 import db from '../../models/index'
@@ -9,13 +12,27 @@ interface TaskInputs {
   userId: string;
 }
 
-export const getAllTodo = async (req: Request, res: Response) => {
+export const getAllTodo = async (req: AuthRequest, res: Response) => {
     try {
-        const todos = await db.Task.findAll()
+        if(req.auth == undefined){
+            return errorMethod(res, ErrorUserMessages.UNAUTHORISED_ACCESS)
+        }
+
+        const todos = await db.Task.findAll({ where: { userId: req.auth.id, isDone: false } })
 
         return res.status(200).json(todos)
     } catch (error) {
         return res.status(500).json({ msg: 'fail to get tasks' })
+    }
+}
+
+export const getCompletedTask = async (req: AuthRequest, res: Response) => {
+    try {
+        const tasks = await db.Task.findAll({ where: { isDone: true, userId: req.auth!.id } })
+        
+        return res.status(200).json(tasks)
+    } catch (error) {
+        return errorMethod(res, ErrorUserMessages.SOMETHING_WRONG)
     }
 }
 
@@ -29,7 +46,7 @@ export const findTodoById = async (req: Request, res: Response) => {
     }
 }
 
-export const createTodo = async (req: Request, res: Response) => {
+export const createTodo = async (req: AuthRequest, res: Response) => {
     const { taskname, taskDescription } = req.body
 
     if (taskname === '' || taskname === undefined) {
@@ -44,7 +61,8 @@ export const createTodo = async (req: Request, res: Response) => {
         id: uuidv4(),
         taskname: taskname,
         taskDescription: taskDescription,
-        userId: 'f4790991-a7ae-49eb-9324-54c374f0e0fa',
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        userId: req.auth!.id
     }
 
     try {

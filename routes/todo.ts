@@ -1,16 +1,23 @@
+import { checkUserGuard } from './../controller/user/user'
 import express from 'express'
-import { getAllTodo,
+import { 
+    getAllTodo,
     findTodoById,
     createTodo,
     updateTodo,
-    deletTodoById, } from '../controller/todo/todo'
+    deletTodoById,
+    getCompletedTask, 
+} from '../controller/todo/todo'
+
+import { AuthGuard } from '../controller/user/user'
 
 const router = express.Router()
 
-router.get('/', getAllTodo)
-router.post('/create', createTodo)
-router.post('/update/:id', updateTodo)
-router.get('/:id', findTodoById)
-router.delete('/:id', deletTodoById)
+router.get('/', AuthGuard, checkUserGuard, getAllTodo)
+router.get('/task/completed', AuthGuard, checkUserGuard, getCompletedTask)
+router.post('/create', AuthGuard, checkUserGuard, createTodo)
+router.post('/update/:id', AuthGuard, checkUserGuard, updateTodo)
+router.get('/:id', AuthGuard, checkUserGuard, findTodoById)
+router.delete('/:id', AuthGuard, checkUserGuard, deletTodoById)
 
 export default router

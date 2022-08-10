@@ -4,7 +4,7 @@
 import { Model, Optional, UUIDV4 } from 'sequelize'
 import { UserAttributes } from './../controller/user/type'
 import crypto from 'crypto'
-import {v4 as uuid4} from 'uuid'
+import { v4 as uuid4 } from 'uuid'
 
 module.exports = (sequelize: any, DataTypes: any) => {
     class User
@@ -51,7 +51,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 set(this, val: string) {
-                    this,this.setDataValue('secret', uuid4())
+                    this, this.setDataValue('secret', uuid4())
                     this.setDataValue('password', this.encrypt_password(val))
                 }
             },
@@ -59,7 +59,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
                 type: DataTypes.UUID,
             },
             profile_picture: {
-                type: DataTypes.BLOB('long'),
+                type: DataTypes.STRING,
                 allowNull: true,
             },
         },
