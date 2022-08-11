@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+const tasks = require('../todo.json')
+
 module.exports = {
     async up(queryInterface, Sequelize) {
     /**
@@ -11,6 +14,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+        await queryInterface.bulkInsert('Tasks', tasks, {})
     },
 
     async down(queryInterface, Sequelize) {
@@ -20,5 +24,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+        await queryInterface.bulkDelete('Tasks', null, {})
     },
 }
