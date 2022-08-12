@@ -10,6 +10,13 @@ const config = {
         host: 'localhost',
         dialect: 'mysql',
     },
+    production: {
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_USER_PASSWORD,
+        database: process.env.DB_NAME,
+        host: 'localhost',
+        dialect: 'mysql',
+    },
 }
 
 export default config
