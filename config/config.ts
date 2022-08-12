@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-var-requires */
-require('dotenv').config()
+import 'dotenv/config' 
 
 const config = {
     development: {
@@ -12,4 +12,4 @@ const config = {
     },
 }
 
-module.exports = config
+export default config

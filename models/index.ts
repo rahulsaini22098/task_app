@@ -4,9 +4,9 @@
 import { DataTypes, Sequelize } from 'sequelize'
 import path from 'path'
 import fs from 'fs'
+import configJson from '../config/config'
 const basename = path.basename(__filename)
 const env = 'development'
-const config = require('../config/config.js')
 
 interface ConfigAttribute {
   database: string;
@@ -15,8 +15,13 @@ interface ConfigAttribute {
   host: string;
 }
 
+interface EnvironmentTypes{
+    [key: string]: ConfigAttribute
+}
+
 const db: any = {}
-const configValue: ConfigAttribute = config[env]
+const config = configJson as EnvironmentTypes
+const configValue = config[env]
 
 const sequelize: Sequelize = new Sequelize(
     configValue.database,
