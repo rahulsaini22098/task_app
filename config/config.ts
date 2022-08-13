@@ -14,7 +14,7 @@ const config = {
         username: process.env.DB_USERNAME,
         password: process.env.DB_USER_PASSWORD,
         database: process.env.DB_NAME,
-        host: 'localhost',
+        host: 'task-app-database.chfy8ql4nryb.ap-south-1.rds.amazonaws.com',
         dialect: 'mysql',
     },
 }

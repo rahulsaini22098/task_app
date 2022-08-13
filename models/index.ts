@@ -8,8 +8,6 @@ import configJson from '../config/config'
 const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'development'
 
-console.log(process.env.NODE_ENV)
-
 interface ConfigAttribute {
   database: string;
   username: string;
@@ -35,7 +33,8 @@ const sequelize: Sequelize = new Sequelize(
 fs.readdirSync(__dirname)
     .filter((file: string) => {
         return (
-            file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.ts'
+            file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.ts' || 
+            file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
         )
     })
     .forEach((file: any) => {

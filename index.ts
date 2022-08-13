@@ -10,7 +10,7 @@ import userRoutes from './routes/user'
 dotenv.config()
 
 const app = express()
-const port = 8000 || process.env.PORT
+const port = process.env.PORT || 8080
 
 // config middleware
 app.use(cors())
