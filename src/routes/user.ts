@@ -1,6 +1,6 @@
 import express from 'express'
 import multer from 'multer'
-import { body, CustomValidator, param } from 'express-validator'
+import { body, CustomValidator } from 'express-validator'
 
 import { 
     AuthGuard, 

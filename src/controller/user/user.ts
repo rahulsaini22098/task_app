@@ -112,6 +112,8 @@ export const updateProfilePicture = async (req: AuthRequest, res: Response) => {
         return res.status(400).json({ error: 'file not found' })
     }
 
+    console.log(file.path)
+
     try {
         const result = await uploadFile(file)
         const updatePicture = await db.User.update(
