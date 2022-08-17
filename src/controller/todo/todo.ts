@@ -18,7 +18,7 @@ export const getAllTodo = async (req: AuthRequest, res: Response) => {
             return errorMethod(res, ErrorUserMessages.UNAUTHORISED_ACCESS)
         }
 
-        const todos = await db.Task.findAll({ where: { userId: req.auth.id, isDone: false } })
+        const todos = await db.Task.findAll({ where: { userId: req.auth.id } })
 
         return res.status(200).json(todos)
     } catch (error) {
