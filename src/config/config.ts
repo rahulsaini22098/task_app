@@ -17,6 +17,13 @@ const config = {
         host: 'task-app-database.chfy8ql4nryb.ap-south-1.rds.amazonaws.com',
         dialect: 'mysql',
     },
+    test: {
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_USER_PASSWORD,
+        database: 'test_task_app',
+        host: 'localhost',
+        dialect: 'mysql',
+    },
 }
 
 export default config
